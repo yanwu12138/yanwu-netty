@@ -12,6 +12,8 @@ import javax.annotation.Resource;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.time.LocalDateTime;
 import java.util.concurrent.Executor;
 
 import static com.yanwu.demo.tcp.client.tcpclient.swing.MyClient.*;
@@ -25,6 +27,10 @@ import static com.yanwu.demo.tcp.client.tcpclient.swing.MyClient.*;
 @Slf4j
 @Component
 public class SwingUtil {
+    private static final String OPEN_ICON = "./classes/icon/open.png";
+    private static final String CLOSE_ICON = "./classes/icon/close.png";
+    private static final ImageIcon OPEN = new ImageIcon(new File(OPEN_ICON).getAbsoluteFile().toString());
+    private static final ImageIcon CLOSE = new ImageIcon(new File(CLOSE_ICON).getAbsoluteFile().toString());
 
     private static SwingUtil swingUtil;
 
@@ -47,7 +53,7 @@ public class SwingUtil {
      * @param e       异常信息
      */
     public static void printLog(String message, Throwable e) {
-        logArea.append(message + "\r\n");
+        logArea.append(LocalDateTime.now() + " " + message + "\r\n");
         if (e == null) {
             log.info(message);
         } else {
@@ -61,13 +67,7 @@ public class SwingUtil {
      * @param flag 状态
      */
     static void setStatusIcon(Boolean flag) {
-        String path;
-        if (flag) {
-            path = SwingUtil.class.getClassLoader().getResource(OPEN_ICON).getPath();
-        } else {
-            path = SwingUtil.class.getClassLoader().getResource(CLOSE_ICON).getPath();
-        }
-        statusIcon.setIcon(new ImageIcon(path));
+        statusIcon.setIcon(flag ? OPEN : CLOSE);
     }
 
     /**

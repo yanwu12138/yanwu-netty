@@ -20,8 +20,6 @@ import static com.yanwu.demo.tcp.client.tcpclient.swing.SwingUtil.*;
 @Slf4j
 @Component
 public class MyClient implements ApplicationListener<ContextRefreshedEvent>, Runnable {
-    static final String OPEN_ICON = "icon/open.png";
-    static final String CLOSE_ICON = "icon/close.png";
     static Boolean isConnection = Boolean.FALSE;
     private static JPanel panel;
     static JTextField ipText;

@@ -21,8 +21,6 @@ import static com.yanwu.demo.tcp.setver.tcp.setver.swing.SwingUtil.*;
 @Slf4j
 @Component
 public class MyServer implements ApplicationListener<ContextRefreshedEvent>, Runnable {
-    static final String OPEN_ICON = "icon/open.png";
-    static final String CLOSE_ICON = "icon/close.png";
     private static JPanel panel;
     static Boolean isConnection = Boolean.FALSE;
     static JTextField portText;

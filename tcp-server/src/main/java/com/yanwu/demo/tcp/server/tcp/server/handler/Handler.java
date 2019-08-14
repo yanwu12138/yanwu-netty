@@ -51,7 +51,7 @@ public class Handler extends ChannelInboundHandlerAdapter {
         ClientSessionMap.put(ctxId, ctx);
         // ===== 处理上行业务
         byte[] bytes = (byte[]) msg;
-        String message = ByteUtil.bytesToHexPrint(bytes);
+        String message = ByteUtil.bytesToHexStrPrint(bytes);
         handler.nettyExecutor.execute(() -> SwingUtil.businessProcess(ctxId, message));
     }
 
@@ -83,8 +83,10 @@ public class Handler extends ChannelInboundHandlerAdapter {
         if (channel == null || StringUtils.isEmpty(message)) {
             return;
         }
-        byte[] bytes = ByteUtil.hexStr2ByteArr(message);
-        log.info("send message, channel: {}, message: {}", ctxId, message);
+        byte[] bytes = ByteUtil.strToHexBytes(message);
+        String[] split = ctxId.split("-");
+        String channelKey = split[split.length - 1].toUpperCase();
+        SwingUtil.printLog(channelKey + " >> 发送报文: " + ByteUtil.bytesToHexStrPrint(bytes), null);
         channel.writeAndFlush(bytes);
     }
 

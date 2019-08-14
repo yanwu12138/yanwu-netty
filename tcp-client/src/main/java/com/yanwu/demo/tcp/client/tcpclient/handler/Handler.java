@@ -41,8 +41,8 @@ public class Handler extends ChannelInboundHandlerAdapter {
         channel = ctx;
         String message = "AA FF 3A" + ChannelUtil.getChannelNo() + "FF BB";
         log.info("send message, channel: {}, message: {}", channel.channel().id().asLongText(), message);
-        SwingUtil.printLog("登陆报文: [" + message + "]", null);
-        byte[] bytes = ByteUtil.hexStr2ByteArr(message);
+        byte[] bytes = ByteUtil.strToHexBytes(message);
+        SwingUtil.printLog("登陆报文: " + ByteUtil.bytesToHexStrPrint(bytes), null);
         channel.writeAndFlush(Unpooled.copiedBuffer(bytes));
     }
 
@@ -57,7 +57,7 @@ public class Handler extends ChannelInboundHandlerAdapter {
         ByteBuf result = (ByteBuf) msg;
         byte[] bytes = new byte[result.readableBytes()];
         result.readBytes(bytes);
-        String message = ByteUtil.bytesToHexPrint(bytes);
+        String message = ByteUtil.bytesToHexStrPrint(bytes);
         // ===== 处理上行业务
         handler.nettyExecutor.execute(() -> SwingUtil.printLog("读取报文: " + message, null));
     }
@@ -92,8 +92,8 @@ public class Handler extends ChannelInboundHandlerAdapter {
             return;
         }
         log.info("send message, channel: {}, message: {}", channel.channel().id().asLongText(), message);
-        byte[] bytes = ByteUtil.hexStr2ByteArr(message);
-        SwingUtil.printLog("发送报文: [" + message + "]", null);
+        byte[] bytes = ByteUtil.strToHexBytes(message);
+        SwingUtil.printLog("发送报文: " + ByteUtil.bytesToHexStrPrint(bytes), null);
         channel.writeAndFlush(Unpooled.copiedBuffer(bytes));
     }
 

@@ -118,7 +118,6 @@ public class SwingUtil {
         }
         try {
             swingUtil.handler.sendMessage(ctxId, message);
-            printLog(channelKey + " >> 发送报文: [" + message + "]", null);
         } catch (Exception e) {
             printLog("发送失败, 请检查服务!", e);
         }

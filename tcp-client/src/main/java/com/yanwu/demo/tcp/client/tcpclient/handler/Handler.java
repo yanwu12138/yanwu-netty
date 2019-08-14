@@ -2,6 +2,7 @@ package com.yanwu.demo.tcp.client.tcpclient.handler;
 
 import com.yanwu.demo.tcp.client.tcpclient.swing.SwingUtil;
 import com.yanwu.demo.tcp.client.tcpclient.utils.ByteUtil;
+import com.yanwu.demo.tcp.client.tcpclient.utils.ChannelUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -36,20 +37,20 @@ public class Handler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+    public void channelActive(ChannelHandlerContext ctx) {
         channel = ctx;
-        String message = "AA FF 07 33 28 00 97 A1 0B EA 02 00 00 BB";
+        String message = "AA FF 3A" + ChannelUtil.getChannelNo() + "FF BB";
         log.info("send message, channel: {}, message: {}", channel.channel().id().asLongText(), message);
-        SwingUtil.printLog("登陆报文: " + message, null);
-        byte[] bytes = message.getBytes();
-        ctx.writeAndFlush(Unpooled.copiedBuffer(bytes));
+        SwingUtil.printLog("登陆报文: [" + message + "]", null);
+        byte[] bytes = ByteUtil.hexStr2ByteArr(message);
+        channel.writeAndFlush(Unpooled.copiedBuffer(bytes));
     }
 
     /**
      * 建立连接
      *
-     * @param ctx
-     * @param msg
+     * @param ctx 通道号
+     * @param msg 报文
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
@@ -58,9 +59,7 @@ public class Handler extends ChannelInboundHandlerAdapter {
         result.readBytes(bytes);
         String message = ByteUtil.bytesToHexPrint(bytes);
         // ===== 处理上行业务
-        handler.nettyExecutor.execute(() -> {
-            SwingUtil.printLog("读取报文: " + message + "", null);
-        });
+        handler.nettyExecutor.execute(() -> SwingUtil.printLog("读取报文: " + message, null));
     }
 
     @Override
@@ -71,7 +70,7 @@ public class Handler extends ChannelInboundHandlerAdapter {
     /**
      * 断开连接
      *
-     * @param ctx
+     * @param ctx 通道号
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
@@ -86,15 +85,15 @@ public class Handler extends ChannelInboundHandlerAdapter {
     /**
      * 发送报文
      *
-     * @param message
+     * @param message 报文
      */
     public void send(String message) {
         if (channel == null || StringUtils.isEmpty(message)) {
             return;
         }
-        byte[] bytes = message.getBytes();
         log.info("send message, channel: {}, message: {}", channel.channel().id().asLongText(), message);
-        SwingUtil.printLog("发送报文: " + message, null);
+        byte[] bytes = ByteUtil.hexStr2ByteArr(message);
+        SwingUtil.printLog("发送报文: [" + message + "]", null);
         channel.writeAndFlush(Unpooled.copiedBuffer(bytes));
     }
 
@@ -112,4 +111,10 @@ public class Handler extends ChannelInboundHandlerAdapter {
         offLine(channel);
         channel = null;
     }
+
+    public void heartbeat() {
+        String message = "AA FF 51" + ChannelUtil.getChannelNo() + "FF BB";
+        send(message);
+    }
+
 }

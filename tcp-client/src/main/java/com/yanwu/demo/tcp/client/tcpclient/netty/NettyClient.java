@@ -43,7 +43,7 @@ public class NettyClient {
                             }
                         });
                 ChannelFuture channel = bootstrap.connect().sync();
-                log.info("Server Client Listen IP: [" + host + ":" + port + "]");
+                log.info("Server Client Listen IP_PORT: [" + host + ":" + port + "]");
                 channel.channel().closeFuture().sync();
             } catch (Exception e) {
                 throw new RuntimeException("netty client start error");

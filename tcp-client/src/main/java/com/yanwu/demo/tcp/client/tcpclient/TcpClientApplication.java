@@ -3,6 +3,7 @@ package com.yanwu.demo.tcp.client.tcpclient;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
@@ -14,6 +15,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * <p>
  * description:
  */
+@EnableScheduling
 @SpringBootApplication
 public class TcpClientApplication {
 

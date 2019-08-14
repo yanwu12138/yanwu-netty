@@ -21,9 +21,9 @@ public class IpAndPortUtil {
     /**
      * 校验IP地址是否合法
      *
-     * @return
+     * @return 校验结果
      */
-    public static Boolean checkIP(String ip) {
+    public static Boolean checkIp(String ip) {
         Pattern pattern = Pattern.compile(IP_REGEX);
         Matcher matcher = pattern.matcher(ip);
         return matcher.matches();
@@ -32,7 +32,7 @@ public class IpAndPortUtil {
     /**
      * 校验端口是否合法
      *
-     * @return
+     * @return 校验结果
      */
     public static Boolean checkPort(String port) {
         if (StringUtils.isEmpty(port)) {

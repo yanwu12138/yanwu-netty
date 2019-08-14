@@ -1,0 +1,6 @@
+logging:
+  file: /log/tcp-client.log
+  level:
+    com: info
+    org: info
+    cn: info

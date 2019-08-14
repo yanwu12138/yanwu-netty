@@ -24,12 +24,7 @@ public final class ClientSessionMap {
 
     public static void sessionSync() {
         try {
-            int size = 0;
-            List keys = SESSION_MAP.getKeys();
-            if (!CollectionUtils.isEmpty(keys)) {
-                size = keys.size();
-            }
-            String message = "当前检测到长连接数目: " + size;
+            String message = "当前检测到长连接数目: " + size();
             SwingUtil.printLog(message, null);
             SwingUtil.setConnectionNum();
         } catch (Exception e) {
@@ -49,5 +44,14 @@ public final class ClientSessionMap {
 
     public static void remove(String ctxId) {
         SESSION_MAP.remove(ctxId);
+    }
+
+    public static int size() {
+        int size = 0;
+        List keys = SESSION_MAP.getKeys();
+        if (!CollectionUtils.isEmpty(keys)) {
+            size = keys.size();
+        }
+        return size;
     }
 }

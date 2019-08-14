@@ -168,8 +168,10 @@ public class MyServer implements ApplicationListener<ContextRefreshedEvent>, Run
      */
     private void createConnectionArea() {
         connections = new JList<>();
-        connections.setBounds(20, 60, 90, 680);
-        panel.add(connections);
+        connections.setBounds(20, 60, 120, 680);
+        JScrollPane connectionsPane = new JScrollPane(connections);
+        connectionsPane.setBounds(20, 60, 120, 680);
+        panel.add(connectionsPane);
         connections.setListData(getNames());
         connections.addListSelectionListener(new BySelectionListListener());
     }
@@ -179,10 +181,10 @@ public class MyServer implements ApplicationListener<ContextRefreshedEvent>, Run
      */
     private void createLogScrollPane() {
         JScrollPane logScrollPane = new JScrollPane();
-        logScrollPane.setBounds(130, 60, 630, 630);
+        logScrollPane.setBounds(160, 60, 600, 630);
         panel.add(logScrollPane);
         logArea = new JTextArea();
-        logArea.setBounds(130, 60, 630, 630);
+        logArea.setBounds(160, 60, 600, 630);
         logScrollPane.setViewportView(logArea);
     }
 
@@ -192,7 +194,7 @@ public class MyServer implements ApplicationListener<ContextRefreshedEvent>, Run
     private void createMessageButton() {
         // ----- 报文输入框
         messageText = new JTextField(20);
-        messageText.setBounds(130, 711, 530, 25);
+        messageText.setBounds(160, 711, 500, 25);
         panel.add(messageText);
         // ----- 发送报文按钮
         JButton sendButton = new JButton("发送");

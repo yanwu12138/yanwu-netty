@@ -1,10 +1,10 @@
 package com.yanwu.demo.tcp.setver.tcp.setver.swing;
 
+import com.yanwu.demo.tcp.setver.tcp.setver.cache.ClientSessionMap;
 import com.yanwu.demo.tcp.setver.tcp.setver.handler.Handler;
 import com.yanwu.demo.tcp.setver.tcp.setver.netty.NettyServer;
 import com.yanwu.demo.tcp.setver.tcp.setver.utils.IpAndPortUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -88,7 +88,7 @@ public class SwingUtil {
     }
 
     public static void setConnectionNum() {
-        connectionNumText.setText(String.valueOf(channelMap.size()));
+        connectionNumText.setText(String.valueOf(ClientSessionMap.size()));
     }
 
     /**

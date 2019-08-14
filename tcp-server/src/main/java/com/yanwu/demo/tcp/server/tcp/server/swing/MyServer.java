@@ -1,4 +1,4 @@
-package com.yanwu.demo.tcp.setver.tcp.setver.swing;
+package com.yanwu.demo.tcp.server.tcp.server.swing;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.yanwu.demo.tcp.setver.tcp.setver.swing.SwingUtil.*;
+import static com.yanwu.demo.tcp.server.tcp.server.swing.SwingUtil.*;
 
 /**
  * @author <a herf="mailto:yanwu0527@163.com">XuBaofeng</a>

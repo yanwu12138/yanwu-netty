@@ -1,6 +1,6 @@
-package com.yanwu.demo.tcp.setver.tcp.setver.scheduler;
+package com.yanwu.demo.tcp.server.tcp.server.scheduler;
 
-import com.yanwu.demo.tcp.setver.tcp.setver.cache.ClientSessionMap;
+import com.yanwu.demo.tcp.server.tcp.server.cache.ClientSessionMap;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

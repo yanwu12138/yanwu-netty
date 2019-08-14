@@ -1,9 +1,9 @@
-package com.yanwu.demo.tcp.setver.tcp.setver.swing;
+package com.yanwu.demo.tcp.server.tcp.server.swing;
 
-import com.yanwu.demo.tcp.setver.tcp.setver.cache.ClientSessionMap;
-import com.yanwu.demo.tcp.setver.tcp.setver.handler.Handler;
-import com.yanwu.demo.tcp.setver.tcp.setver.netty.NettyServer;
-import com.yanwu.demo.tcp.setver.tcp.setver.utils.IpAndPortUtil;
+import com.yanwu.demo.tcp.server.tcp.server.cache.ClientSessionMap;
+import com.yanwu.demo.tcp.server.tcp.server.handler.Handler;
+import com.yanwu.demo.tcp.server.tcp.server.netty.NettyServer;
+import com.yanwu.demo.tcp.server.tcp.server.utils.IpAndPortUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-import static com.yanwu.demo.tcp.setver.tcp.setver.swing.MyServer.*;
+import static com.yanwu.demo.tcp.server.tcp.server.swing.MyServer.*;
 
 /**
  * @author <a herf="mailto:yanwu0527@163.com">XuBaofeng</a>

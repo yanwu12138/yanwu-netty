@@ -8,10 +8,10 @@
         <version>2.1.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.yanwu.demo.tcp.setver</groupId>
-    <artifactId>tcp-setver</artifactId>
+    <groupId>com.yanwu.demo.tcp.server</groupId>
+    <artifactId>tcp-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tcp-setver</name>
+    <name>tcp-server</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

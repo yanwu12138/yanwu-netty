@@ -1,4 +1,4 @@
-package com.yanwu.demo.tcp.setver.tcp.setver;
+package com.yanwu.demo.tcp.server.tcp.server;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

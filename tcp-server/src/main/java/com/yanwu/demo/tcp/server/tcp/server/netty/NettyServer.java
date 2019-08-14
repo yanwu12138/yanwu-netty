@@ -1,7 +1,7 @@
-package com.yanwu.demo.tcp.setver.tcp.setver.netty;
+package com.yanwu.demo.tcp.server.tcp.server.netty;
 
-import com.yanwu.demo.tcp.setver.tcp.setver.handler.ChannelHandler;
-import com.yanwu.demo.tcp.setver.tcp.setver.utils.IpAndPortUtil;
+import com.yanwu.demo.tcp.server.tcp.server.handler.ChannelHandler;
+import com.yanwu.demo.tcp.server.tcp.server.utils.IpAndPortUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;

@@ -3,11 +3,19 @@ package com.yanwu.demo.tcp.setver.tcp.setver;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
+/**
+ * @author <a herf="mailto:yanwu0527@163.com">XuBaofeng</a>
+ * @date 2019-08-09 11:25.
+ * <p>
+ * description:
+ */
+@EnableScheduling
 @SpringBootApplication
 public class TcpServerApplication {
 

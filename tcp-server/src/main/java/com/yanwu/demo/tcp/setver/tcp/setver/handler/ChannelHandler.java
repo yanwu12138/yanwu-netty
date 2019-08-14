@@ -13,12 +13,14 @@ import io.netty.handler.codec.bytes.ByteArrayEncoder;
  * description:
  */
 public class ChannelHandler extends ChannelInitializer<SocketChannel> {
+
     @Override
-    protected void initChannel(SocketChannel socketChannel) throws Exception {
+    protected void initChannel(SocketChannel socketChannel) {
         ChannelPipeline p = socketChannel.pipeline();
         p.addLast(new ByteArrayDecoder());
         p.addLast(new ByteArrayEncoder());
         // ===== 增加业务处理handler
         p.addLast(new Handler());
     }
+
 }

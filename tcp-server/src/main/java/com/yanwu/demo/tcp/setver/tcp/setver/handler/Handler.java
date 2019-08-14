@@ -3,7 +3,6 @@ package com.yanwu.demo.tcp.setver.tcp.setver.handler;
 import com.yanwu.demo.tcp.setver.tcp.setver.cache.ClientSessionMap;
 import com.yanwu.demo.tcp.setver.tcp.setver.swing.SwingUtil;
 import com.yanwu.demo.tcp.setver.tcp.setver.utils.ByteUtil;
-import com.yanwu.demo.tcp.setver.tcp.setver.utils.NettyUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
@@ -37,14 +36,12 @@ public class Handler extends ChannelInboundHandlerAdapter {
     /**
      * 建立连接
      *
-     * @param ctx
-     * @param msg
+     * @param ctx 通道号
+     * @param msg 报文
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        byte[] bytes = (byte[]) msg;
-        String message = ByteUtil.bytesToHexPrint(bytes);
-        String ctxId = NettyUtils.getChannelId(ctx);
+        String ctxId = ctx.channel().id().asLongText();
         if (ClientSessionMap.get(ctxId) == null) {
             handler.nettyExecutor.execute(() -> {
                 // ----- 建立连接
@@ -53,28 +50,28 @@ public class Handler extends ChannelInboundHandlerAdapter {
         }
         ClientSessionMap.put(ctxId, ctx);
         // ===== 处理上行业务
-        handler.nettyExecutor.execute(() -> {
-            SwingUtil.businessProcess(ctxId, message);
-        });
+        byte[] bytes = (byte[]) msg;
+        String message = ByteUtil.bytesToHexPrint(bytes);
+        handler.nettyExecutor.execute(() -> SwingUtil.businessProcess(ctxId, message));
     }
 
     /**
      * 断开连接
      *
-     * @param ctx
+     * @param ctx 通道号
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         try {
-            String ctxId = NettyUtils.getChannelId(ctx);
+            String ctxId = ctx.channel().id().asLongText();
             if (ClientSessionMap.get(ctxId) == null) {
                 return;
             }
             log.info("channel close connection, channel: {}", ctxId);
-            ClientSessionMap.remove(ctxId);
             ctx.channel().close();
             ctx.close();
             // ===== 处理断线业务
+            ClientSessionMap.remove(ctxId);
             SwingUtil.closeConnections(ctxId);
         } catch (Exception e) {
             log.error("channel close error: ", e);
@@ -82,7 +79,6 @@ public class Handler extends ChannelInboundHandlerAdapter {
     }
 
     public void sendMessage(String ctxId, String message) {
-        message = message.replaceAll(" ", "");
         ChannelHandlerContext channel = ClientSessionMap.get(ctxId);
         if (channel == null || StringUtils.isEmpty(message)) {
             return;

@@ -12,27 +12,14 @@ import java.util.regex.Pattern;
  * description:
  */
 public class IpAndPortUtil {
-    /*** IP地址 ***/
-    private static final String IP_NUM = "(25[0-5]|2[0-4]\\d|[0-1]\\d{2}|[1-9]?\\d)";
-    private static final String IP_REGEX = "^" + IP_NUM + "\\." + IP_NUM + "\\." + IP_NUM + "\\." + IP_NUM + "$";
     /*** 端口取值范围 */
     private static final Integer[] PORT = {0, 65536};
 
     /**
-     * 校验IP地址是否合法
-     *
-     * @return
-     */
-    public static Boolean checkIP(String ip) {
-        Pattern pattern = Pattern.compile(IP_REGEX);
-        Matcher matcher = pattern.matcher(ip);
-        return matcher.matches();
-    }
-
-    /**
      * 校验端口是否合法
      *
-     * @return
+     * @param port 端口
+     * @return 校验结果
      */
     public static Boolean checkPort(String port) {
         if (StringUtils.isEmpty(port)) {

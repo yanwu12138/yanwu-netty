@@ -1,5 +1,6 @@
 package com.yanwu.demo.tcp.setver.tcp.setver.cache;
 
+import com.yanwu.demo.tcp.setver.tcp.setver.swing.SwingUtil;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.ehcache.Cache;
@@ -28,9 +29,11 @@ public final class ClientSessionMap {
             if (!CollectionUtils.isEmpty(keys)) {
                 size = keys.size();
             }
-            log.info("当前检测到长连接数目: {}", size);
+            String message = "当前检测到长连接数目: " + size;
+            SwingUtil.printLog(message, null);
+            SwingUtil.setConnectionNum();
         } catch (Exception e) {
-            log.error("[local cache]monitor has occured error,cause:" + e);
+            log.error("[local cache] monitor has occured error, cause: " + e);
         }
     }
 
@@ -44,7 +47,7 @@ public final class ClientSessionMap {
         return element == null ? null : (ChannelHandlerContext) element.getObjectValue();
     }
 
-    public static Boolean remove(String ctxId) {
-        return SESSION_MAP.remove(ctxId);
+    public static void remove(String ctxId) {
+        SESSION_MAP.remove(ctxId);
     }
 }

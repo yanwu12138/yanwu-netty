@@ -25,15 +25,15 @@ import java.util.concurrent.Executor;
 @Component
 public class NettyServer {
     /*** 创建bootstrap */
-    ServerBootstrap serverBootstrap = new ServerBootstrap();
+    private ServerBootstrap serverBootstrap = new ServerBootstrap();
     /*** BOSS */
-    EventLoopGroup bossGroup = new NioEventLoopGroup();
+    private EventLoopGroup bossGroup = new NioEventLoopGroup();
     /*** Worker */
-    EventLoopGroup workGroup = new NioEventLoopGroup();
+    private EventLoopGroup workGroup = new NioEventLoopGroup();
     @Resource
     Executor nettyExecutor;
 
-    public void open(Integer port) throws Exception {
+    public void open(Integer port) {
         nettyExecutor.execute(() -> {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
@@ -46,13 +46,15 @@ public class NettyServer {
                     //绑定端口，同步等待成功
                     if (IpAndPortUtil.checkPort(String.valueOf(port))) {
                         ChannelFuture channel = serverBootstrap.bind(port).sync();
-                        log.info("netty server start On Port:{}", channel.channel().localAddress());
                         channel.channel().closeFuture().sync();
                     }
                     log.info("netty server start on port:{}", port);
                 }
             } catch (Exception e) {
-                log.error("netty server start error: " + e);
+                log.error("netty server start error: ", e);
+            } finally {
+                bossGroup.shutdownGracefully();
+                workGroup.shutdownGracefully();
             }
         });
     }
@@ -62,9 +64,10 @@ public class NettyServer {
      */
     @PreDestroy
     public void close() {
-        log.info("Netty服务器正在关闭....");
+        log.info("netty server close ing ...");
         bossGroup.shutdownGracefully();
         workGroup.shutdownGracefully();
-        log.info("Netty服务器关闭成功....");
+        log.info("netty server close end ...");
     }
+
 }
